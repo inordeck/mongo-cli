@@ -65,7 +65,7 @@ mongo.connect(url, function(err, db){
 // HOMEWORK 1 //
 
 //connect to data base restaurants 
-mongo.connect(url, function(err, db) {
+mongo.connect(url, function(err, db){
 	var collection = db.collection('restaurants');
 	// create prompt to enter a restaurtant name
 	var nameChoice = prompt("Type 'name' and press enter to display a restaurant: ");
@@ -76,21 +76,15 @@ mongo.connect(url, function(err, db) {
     	var editName = prompt("Edit restaurant name: ");
     	// edit restaurant name
     	collection.update({ $set: { name:editName }});
-    } else {
+    }
+    /*else {
     	collection.find({"name": false}) {
     		console.log("Sorry, no restaurant in our data base with that name.");
     	}
 	}
+	*/
 });
 
-/*
-	// if restaurant does not exists in db, display in console log error`
-	else {
-    	collection.find({"name": false}) {
-		console.log("Sorry, no restaurant in our data base with that name.");
-	}
-};
-*/
 
 /*
 // HOMEWORK 2 //
