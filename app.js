@@ -1,12 +1,10 @@
-// app.js
-
 var mongo = require("mongodb").MongoClient;
 var prompt = require("prompt-sync")();
 var url = "mongodb://localhost:27017/restaurant_db";
 
 
-// STEP 1 //
 /*
+// STEP 1 //
 mongo.connect(url, function(err, db){
 	var collection = db.collection('restaurants');
 	collection.find().toArray(function(err, docs){
@@ -16,14 +14,14 @@ mongo.connect(url, function(err, db){
 */
 
 
-// STEP 2 //
 /*
+// STEP 2 //
 mongo.connect(url, function(err, db){
 	var collection = db.collection('restaurants');
 	var allChoice = prompt("Type 'all' and press enter to display all restaurants' names: ");
 	if(allChoice == "all"){
-		collection.find().toArray(function(err, docs){
-    		console.log(docs);
+		collection.find().toArray(function(err, doc){
+    		console.log(doc);
     	});
 	} else {
 		console.log("Awe, you don't want to see the restaurants?");
@@ -32,8 +30,8 @@ mongo.connect(url, function(err, db){
 */
 
 
-// TASK 1 //
 /*
+// TASK 1 //
 mongo.connect(url, function(err, db){
 	var collection = db.collection('restaurants');
 	var nameChoice = prompt("Type 'name' and press enter to display a restaurant: ");
@@ -43,9 +41,8 @@ mongo.connect(url, function(err, db){
 });
 */
 
-
-// TASK 2: //
 /*
+// TASK 2: //
 mongo.connect(url, function(err, db){
 	var collection = db.collection('restaurants');
 	var insertChoice = prompt("enter a new restaurant: ");
@@ -63,27 +60,36 @@ mongo.connect(url, function(err, db){
 
 
 // HOMEWORK 1 //
-
 //connect to data base restaurants 
 mongo.connect(url, function(err, db){
 	var collection = db.collection('restaurants');
 	// create prompt to enter a restaurtant name
 	var nameChoice = prompt("Type 'name' and press enter to display a restaurant: ");
-	// if name matches name in database, console log resuls
-	if (collection.find({"name":nameChoice}).toArray(function(err, docs) {
-    		console.log(docs);
-    	// prompt to update name
-    	var editName = prompt("Edit restaurant name: ");
-    	// edit restaurant name
-    	collection.update({ $set: { name:editName }});
+
+	if (collection.find({"name": false})) {
+    	console.log("Sorry, no restaurant in our data base with that name.");
     }
-    /*else {
-    	collection.find({"name": false}) {
-    		console.log("Sorry, no restaurant in our data base with that name.");
-    	}
-	}
-	*/
+	// if name matches name in database, console log results
+	if (collection.find({"name":nameChoice}).toArray(function(err, docs) {
+    	console.log(docs);
+    	// prompt to update
+    	var editName = prompt("Edit restaurant name: ");
+    	var editStreet = prompt("Edit street address: ");
+    	var editZipCode = prompt("Edit zipcode: ");
+    	var editYelp = prompt("Edit yelp url: ");
+    	// edit restaurant name
+    	collection.insert({
+    		'name': editName,
+    		'street': editStreet,
+    		'zipcode': editStreet,
+    		'yelp': editYelp
+    	});
+    }));
 });
+
+
+/*
+*/    	
 
 
 /*
